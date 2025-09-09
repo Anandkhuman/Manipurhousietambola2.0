@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>sinthahousie</title>
+    <title>Manipur Housie tambola 2.0</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -999,7 +999,7 @@
     <header class="top-header">
         <div class="title-container">
             <div class="logo-container"><i class="fas fa-ticket-alt"></i></div>
-            <h1 class="webTitle">Sintha Housie</h1>
+            <h1 class="webTitle">Manipur Housie Tambola 2.0</h1>
         </div>
     </header>
 
@@ -1064,7 +1064,7 @@
     <header class="top-header">
          <div class="title-container">
             <div class="logo-container"><i class="fas fa-ticket-alt"></i></div>
-            <h1 class="webTitle">Sintha Housie</h1>
+            <h1 class="webTitle">Manipur Housie Tambola 2.0</h1>
         </div>
     </header>
 
@@ -1368,17 +1368,7 @@
                 </tr>
             </tbody>
         </table>
-        <table class="runGameTable gameSettingTable" style="margin-top: 0.5rem;">
-            <tbody>
-                <tr>
-                    <td>MANUAL CALL</td>
-                    <td style="display: flex; gap: 5px;">
-                        <input type="number" class="tableInp" id="manualCallInp" placeholder="Num" style="flex-grow: 1;">
-                        <button class="actionBtn" onclick="manualCallNumber()" style="flex-grow: 2; height: auto; margin: 0;">CALL</button>
-                    </td>
-                </tr>
-            </tbody>
-        </table>
+    
         <section class="panel" style="background: var(--secondary-bg-dash); width: 95%; margin: 1rem auto; border-color: var(--accent-color-dash);">
             <h2 class="panel-title" style="color: var(--light-text-dash); text-shadow: none; font-size: 1.2rem;">GAME BOARD</h2>
             <div class="number-board" id="runGamePopupBoard">
@@ -1480,14 +1470,14 @@
 
 <script>
 const firebaseConfig = {
-  apiKey: "AIzaSyB2imEIvh_bWbYD_yPB7p3af7bV9OWdA5A",
-  authDomain: "sinthahousie-1dd3b.firebaseapp.com",
-  databaseURL: "https://sinthahousie-1dd3b-default-rtdb.firebaseio.com",
-  projectId: "sinthahousie-1dd3b",
-  storageBucket: "sinthahousie-1dd3b.firebasestorage.app",
-  messagingSenderId: "76567991256",
-  appId: "1:76567991256:web:c58b127b8d86d8a1c598ad",
-  measurementId: "G-MGW406NKBY"
+  apiKey: "AIzaSyC4ygSAwFZ-ZaAbKCKNqeb90cnQxuSCUuQ",
+  authDomain: "manipur-housie-tambola-2.firebaseapp.com",
+  databaseURL: "https://manipur-housie-tambola-2-default-rtdb.firebaseio.com",
+  projectId: "manipur-housie-tambola-2",
+  storageBucket: "manipur-housie-tambola-2.firebasestorage.app",
+  messagingSenderId: "44845821177",
+  appId: "1:44845821177:web:75b9d2d8a02c92103ac628",
+  measurementId: "G-NHEFYNES37"
 };
 
 firebase.initializeApp(firebaseConfig);
@@ -1725,6 +1715,7 @@ async function handleForgotPassword(e) {
 
 function bindEventListeners() {
     document.querySelectorAll('.x-button').forEach(btn => btn.addEventListener('click', closePopups));
+    document.getElementById('showSignupFormBtn').addEventListener('click', showSignupForm);
     document.getElementById('showLoginFormBtn').addEventListener('click', showLoginForm);
     document.getElementById('adminLoginBtn').addEventListener('click', () => loginUser('admin'));
     document.getElementById('agentLoginBtn').addEventListener('click', () => loginUser('agent'));
@@ -3128,7 +3119,7 @@ function changePosterBackground(source) {
 }
 
 function showPosterModal() {
-    const title = "SINTHA TEAM HOUSIE";
+    const title = "MANIPUR HOUSIE TAMBOLA 2.0";
     const gameDateTime = gameSettingsData.gameDateTime;
     const ticketPrice = gameSettingsData.ticketPrice || 'N/A';
     const totalTickets = gameSettingsData.totalTickets || 'N/A';
@@ -3213,7 +3204,7 @@ async function sharePoster() {
         const file = new File([blob], 'housie-poster.png', { type: 'image/png' });
         const filesArray = [file];
 
-        const websiteName = "Sintha Team Housie Game!";
+        const websiteName = "Manipur Housie Tambola 2.0 Game!";
         const websiteLink = window.location.href.split('#')[0];
         
         if (navigator.canShare && navigator.canShare({ files: filesArray })) {
