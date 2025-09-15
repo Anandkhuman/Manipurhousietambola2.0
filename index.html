@@ -1009,7 +1009,7 @@
 
      .actionBtn {
     background: var(--primary-bg-dash, #2c2c2c);
-    color: var(--light-text-dash, green );
+    color: var(--light-text-dash, #fff);
     border: 1px solid var(--muted-color-dash, #555);
     border-radius: 6px;
     padding: 6px 12px;
@@ -1399,8 +1399,6 @@
             <div class="timer-status-bar" id="runGame-timer-bar" style="border-top: none; padding-top: 0; margin-bottom: 1rem;">
             </div>
         </div>
-<div style="font-weight:bold;font-size:14px;display:inline-flex;align-items:center;gap:10px;padding:10px 16px;border-radius:6px;background:#ff4d4d;color:#fff;box-shadow:0 0 12px rgba(255,77,77,0.8);animation:blink 2s infinite;margin:1rem auto;"><i class="fas fa-exclamation-triangle"></i> DO NOT CLOSE THIS PAGE WHILE GAME IS RUNNING</div><style>@keyframes blink{50%{background:#fff;color:#ff4d4d;box-shadow:0 0 12px rgba(255,0,0,0.8);}}</style>
-
         <table class="runGameTable gameSettingTable">
             <tbody>
                 <tr>
@@ -1439,7 +1437,9 @@
             </table>
         </section>
 
+	<div style="font-weight:bold;font-size:14px;display:inline-flex;align-items:center;gap:10px;padding:10px 16px;border-radius:6px;background:#ff4d4d;color:#fff;box-shadow:0 0 12px rgba(255,77,77,0.8);animation:blink 2s infinite; margin: 1rem auto;"><i class="fas fa-exclamation-triangle"></i> DO NOT CLOSE THIS PAGE WHILE GAME IS RUNNING</div><style>@keyframes blink{50%{background:#fff;color:#ff4d4d;box-shadow:0 0 12px rgba(255,0,0,0.8);}}</style>
 
+      </div>
 </div>
 <div class="overlay-popup" id="genericInfoPopup">
     <div class="popup-content">
@@ -1532,6 +1532,7 @@ const firebaseConfig = {
   appId: "1:44845821177:web:75b9d2d8a02c92103ac628",
   measurementId: "G-NHEFYNES37"
 };
+
 
 
 
@@ -3647,12 +3648,12 @@ function setNextCallNumber() {
     const numberToSet = parseInt(inputEl.value, 10);
 
     if (isNaN(numberToSet) || numberToSet < 1 || numberToSet > 90) {
-        
+        showNotification('Please enter a valid number between 1 and 90.', 'error');
         return;
     }
 
     if (currentCalledNumbers.includes(numberToSet)) {
-        
+        showNotification(`Number ${numberToSet} has already been called.`, 'error');
         return;
     }
     
