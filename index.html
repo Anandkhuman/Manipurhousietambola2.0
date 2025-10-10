@@ -365,7 +365,7 @@
     }
 
     .panel-title {
-        font-size: 1.4rem; font-weight: 700; margin-bottom: 1rem;
+        font-size: 1.2rem; font-weight: 700; margin-bottom: 0.8rem;
         color: var(--accent-primary); text-align: center;
         text-shadow: 0 0 1px var(--accent-primary), 0 0 1px var(--accent-primary);
           
@@ -383,28 +383,29 @@
         width: 100%;
     }
     
-    .icon-btn {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-        gap: 0.2rem;
-        background: transparent;
-        border: none;
-        color: var(--accent-primary);
-        border-radius: 4px;
-        padding: 0.4rem 0.2rem;
-        font-size: 0.50rem;
-        font-weight: 500;
-        cursor: pointer;
-        text-decoration: none;
-        transition: background-color var(--transition-speed) ease, color 0.3s, transform 0.3s;
-        flex-grow: 1;
-        flex-basis: 0;
-        text-align: center;
-    }
+  .icon-btn {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 0.2rem;
+    background: rgba(50, 155, 96, 0.6); /* Halki Orange background */
+    border: none;
+    color: #000000;
+    border-radius: 10px; /* Thoda zyada curve */
+    padding: 0.4rem 0.2rem;
+    font-size: 0.60rem;
+    font-weight: 500;
+    cursor: pointer;
+    text-decoration: none;
+    transition: background-color var(--transition-speed) ease, color 0.3s, transform 0.3s;
+    flex-grow: 1;
+    flex-basis: 0;
+    text-align: center;
+    margin: 0 4px; /* Buttons ke beech thodi jagah */
+}
     .icon-btn:hover {
-        background: rgba(0, 246, 255, 0.1);
+        background: rgba(210, 96, 255, 0.1);
         color: var(--text-primary);
         transform: translateY(-2px);
     }
@@ -1905,17 +1906,7 @@ tr.agent-row-card td {
                 </tr>
             </tbody>
         </table>
-      <table class="runGameTable gameSettingTable" style="margin-top: 0.5rem;">
-            <tbody>
-                <tr>
-                    <td>NEXT CALL NUMBER</td>
-                    <td style="display: flex; gap: 5px;">
-                        <input type="number" class="tableInp" id="nextCallInp" placeholder="Num" style="flex-grow: 1;">
-                        <button class="actionBtn" onclick="setNextCallNumber()" style="flex-grow: 2; height: auto; margin: 0;">SET</button>
-                    </td>
-                </tr>
-            </tbody>
-	  </table>
+  
           <section class="panel" style="background: var(--secondary-bg-dash); width: 95%; margin: 1rem auto; border-color: var(--accent-color-dash);">
             <h2 class="panel-title" style="color: var(--light-text-dash); text-shadow: none; font-size: 1.2rem;">VIEW TICKET</h2>
             <div class="search-container" style="padding: 0 1rem 1rem 1rem;">
