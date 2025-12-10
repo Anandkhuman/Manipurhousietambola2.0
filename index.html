@@ -4098,14 +4098,34 @@ async function sharePoster() {
         const file = new File([blob], 'housie-poster.png', { type: 'image/png' });
         const filesArray = [file];
 
-        const websiteName = "LUCKY HOUSIE MANIPUR Game!";
-        const websiteLink = window.location.href.split('#')[0];
+        // --- CHANGE START: Date Formatting Logic ---
+        const rawDate = gameSettingsData.gameDateTime; // Get date from settings
+        let gameTimeFormatted = "Coming Soon";
+
+        if (rawDate) {
+            const dateObj = new Date(rawDate);
+            // Format: Wednesday, Dec 10, 2025 at 8:00 PM
+            gameTimeFormatted = dateObj.toLocaleString('en-US', {
+                weekday: 'long',
+                month: 'short',
+                day: 'numeric',
+                year: 'numeric',
+                hour: 'numeric',
+                minute: 'numeric',
+                hour12: true
+            });
+        }
+        // --- CHANGE END ---
+
+        const websiteName = "LUCKY HOUSIE MANIPUR";
+        const websiteLink = window.location.href.split('#')[0]; // Current Website Link
         
         if (navigator.canShare && navigator.canShare({ files: filesArray })) {
             await navigator.share({
                 files: filesArray,
                 title: websiteName,
-                text: `Join the ${websiteName}. Check out the poster!`,
+                // Here is the prefilled text with Date & Time
+                text: `Join the ${websiteName} Game! \n\n🗓️ Game Time: ${gameTimeFormatted} \n🎟️ Grab your tickets and win big! \n\nClick here to join/book:`,
                 url: websiteLink
             });
             showNotification('Poster shared successfully!', 'success');
