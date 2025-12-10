@@ -4097,67 +4097,71 @@ async function sharePoster() {
     const posterElement = document.getElementById('posterContent');
     if (!posterElement) return showNotification('Poster element not found.', 'error');
 
-    showNotification('Preparing poster for sharing...', 'info');
+    showNotification('Generating image & copying text...', 'info');
 
     try {
-        // Image generate karna
-        const canvas = await html2canvas(posterElement, { useCORS: true, allowTaint: true });
-        const blob = await new Promise(resolve => canvas.toBlob(resolve, 'image/png'));
-        const file = new File([blob], 'housie-poster.png', { type: 'image/png' });
+        // 1. Image Generate (JPEG Format use kar rahe hain compatibility ke liye)
+        const canvas = await html2canvas(posterElement, { 
+            useCORS: true, 
+            allowTaint: true,
+            scale: 2 // Behtar quality ke liye
+        });
+        
+        // JPEG Blob bana rahe hain (0.9 quality)
+        const blob = await new Promise(resolve => canvas.toBlob(resolve, 'image/jpeg', 0.9));
+        
+        // File ka naam .jpg hona chahiye
+        const file = new File([blob], 'lucky-housie-invite.jpg', { type: 'image/jpeg' });
         const filesArray = [file];
 
-        // Date formatting logic
+        // 2. Text Prepare Karna
         const rawDate = gameSettingsData.gameDateTime;
         let gameTimeFormatted = "Coming Soon";
 
         if (rawDate) {
             const dateObj = new Date(rawDate);
             gameTimeFormatted = dateObj.toLocaleString('en-US', {
-                weekday: 'long',
-                month: 'short',
-                day: 'numeric',
-                year: 'numeric',
-                hour: 'numeric',
-                minute: 'numeric',
-                hour12: true
+                weekday: 'short', month: 'short', day: 'numeric',
+                hour: 'numeric', minute: 'numeric', hour12: true
             });
         }
 
         const websiteName = "LUCKY HOUSIE MANIPUR";
         const websiteLink = window.location.href.split('#')[0];
 
-        // URL ko Text ke andar hi add kar diya taaki caption mein aaye
-        const fullShareText = `Join the ${websiteName} Game! \n\n🗓️ Game Time: ${gameTimeFormatted} \n🎟️ Grab your tickets and win big! \n\n👇 Click here to join/book:\n${websiteLink}`;
+        const fullShareText = `*${websiteName}*\n\n🗓️ Time: ${gameTimeFormatted}\n🎟️ Ticket Price: Rs ${gameSettingsData.ticketPrice || 'N/A'}\n\n👇 Book Now:\n${websiteLink}`;
 
-        // 1. SAFETY: Text ko pehle clipboard copy kar lo (kyunki WhatsApp kabhi kabhi text ignore karta hai)
+        // 3. COPY TO CLIPBOARD (Yeh sabse zaroori step hai ab)
+        // Agar WhatsApp text nahi dikhata, toh user paste kar sakega.
         try {
             await navigator.clipboard.writeText(fullShareText);
-            showNotification('Caption copied! Paste it if missing.', 'success');
+            // Ek alag se bada alert/notification dikhayenge
+            showNotification('Caption COPIED! Paste it in WhatsApp.', 'success');
         } catch (err) {
-            console.log('Clipboard copy failed');
+            console.error('Clipboard copy failed', err);
         }
 
-        // 2. Share Functionality
+        // 4. Share Function
         if (navigator.canShare && navigator.canShare({ files: filesArray })) {
             await navigator.share({
                 files: filesArray,
-                title: websiteName,
-                text: fullShareText // URL ko text mein daal diya hai
-                // Note: 'url' field hata diya gaya hai taaki conflict na ho
+                text: fullShareText // Sirf files aur text bhej rahe hain
             });
-            showNotification('Poster shared successfully!', 'success');
         } else {
-            showNotification('Sharing not supported. Downloading image...', 'info');
+            showNotification('Sharing not supported. Downloading...', 'info');
             savePosterAsImage();
         }
+
     } catch (error) {
         if (error.name !== 'AbortError') {
              console.error('Error sharing poster:', error);
-             showNotification(`Could not share: ${error.message}`, 'error');
+             showNotification('Share failed. Image downloaded.', 'error');
              savePosterAsImage();
         }
     }
-}function updateAgentInfoUI() {
+}
+
+function updateAgentInfoUI() {
     if (!currentUser || currentView !== 'agentDashboardView') return;
     
     const agentData = allUsersData.find(u => u.uid === currentUser.uid);
